@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Missão 2 - Matemática</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Rowdies&family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      background-image: url('https://i.ibb.co/S48HR1m3/IMG-0567.jpg');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      position: relative;
+      max-width: 800px;
+      width: 100%;
+      overflow: visible;
+    }
+
+    .animar-container {
+      position: relative;
+      width: 100%;
+      opacity: 1;
+      transform: translateX(0);
+      will-change: transform, opacity;
+    }
+
+    .topo {
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: none;
+      font-family: 'Rowdies', cursive;
+      background-color: #f6edbe;
+      padding: 10px 25px;
+      border-radius: 20px 20px 0 0;
+      font-size: 22px;
+      margin: 0 auto 5px auto;
+      text-align: center;
+      box-shadow: 0 6px 0 #e2d59b;
+      z-index: 10;
+      width: max-content;
+      min-width: 300px;
+    }
+
+    .card {
+      position: relative;
+      background-color: #fffde8;
+      border-radius: 30px;
+      padding: 50px 40px 30px 40px;
+      box-shadow: 0 6px 0 #e2d59b;
+      border: 6px solid #f6edbe;
+      text-align: left;
+    }
+
+    #contador {
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      font-family: 'Rowdies', cursive;
+      background-color: #f6edbe;
+      padding: 6px 15px;
+      border-radius: 12px;
+      font-size: 24px;
+      box-shadow: 0 4px 0 #e2d59b;
+      user-select: none;
+      z-index: 20;
+      width: 60px;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #inicio .card p,
+    #inicio .card input[type="text"] {
+      text-align: left;
+      max-width: 400px;
+      margin: 0 0 15px 0;
+      display: block;
+    }
+
+    #inicio .card input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      height: 40px;
+      font-size: 18px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+    }
+
+    .question {
+      margin-bottom: 30px;
+      font-size: 20px;
+      max-width: 720px;
+    }
+
+    label {
+      display: block;
+      background-color: #fffdf5;
+      border-radius: 18px;
+      padding: 12px 18px;
+      margin: 10px 0;
+      box-shadow: 0 6px 0 #e2d59b;
+      border: 2px solid #e2d59b;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: left;
+      max-width: 720px;
+    }
+
+    label:hover {
+      background-color: #fdf8d5;
+      transform: translateY(-2px);
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    button {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      background-color: #53b6ff;
+      color: white;
+      box-shadow: 0 4px 0 #3794cc;
+    }
+
+    button:active {
+      background-color: #34a853;
+      box-shadow: 0 2px 0 #2e8e44;
+      transform: translateY(2px);
+    }
+
+    #textoResultado {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 0 #ccc;
+      text-align: left;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1,
+    h2,
+    p {
+      text-align: center;
+    }
+
+    #inicio,
+    #quiz,
+    #resultado {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .animar-container.sair-esquerda {
+      animation: sairEsquerda 1.2s forwards;
+    }
+
+    @keyframes sairEsquerda {
+      from {opacity: 1; transform: translateX(0);}
+      to {opacity: 0; transform: translateX(-100vw);}
+    }
+
+    .animar-container.sair-direita {
+      animation: sairDireita 1.2s forwards;
+    }
+
+    @keyframes sairDireita {
+      from {opacity: 1; transform: translateX(0);}
+      to {opacity: 0; transform: translateX(100vw);}
+    }
+
+    .animar-container.entrar-direita {
+      animation: entrarDireita 1.2s forwards;
+    }
+
+    @keyframes entrarDireita {
+      from {opacity: 0; transform: translateX(100vw);}
+      to {opacity: 1; transform: translateX(0);}
+    }
+
+    .animar-container.entrar-esquerda {
+      animation: entrarEsquerda 1.2s forwards;
+    }
+
+    @keyframes entrarEsquerda {
+      from {opacity: 0; transform: translateX(-100vw);}
+      to {opacity: 1; transform: translateX(0);}
+    }
+  </style>
+</head>
+<body>
+  <div id="inicio" class="container">
+    <div class="animar-container">
+      <div class="topo">Missão 2 - Matemática</div>
+      <div class="card">
+        <p>Digite seu nome:</p>
+        <input type="text" id="nomeAluno" />
+        <button onclick="iniciarQuiz()">Começar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="quiz" class="hidden container">
+    <div class="animar-container">
+      <div class="topo">Missão 2 - Matemática</div>
+      <div class="card">
+        <div id="contador">1/10</div>
+        <div id="perguntaContainer"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultado" class="hidden container">
+    <div class="animar-container">
+      <div class="topo">Missão 2 - Matemática</div>
+      <div class="card">
+        <h2>Resultado</h2>
+        <div id="textoResultado"></div>
+        <a href="shortcuts://run-shortcut?name=Missões"><button>Enviar para o professor</button></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const perguntas = [
+      { pergunta: 'Quanto é 8 - 5?', alternativas: ['3', '2', '4'], correta: 'a' },
+      { pergunta: 'Maria tinha 6 bombons. Já comeu 2. Quantos ela tem agora?', alternativas: ['5', '4', '3'], correta: 'b' },
+      { pergunta: 'João comprou um pacote de petiscos para seu cachorro, e dentro dele haviam 10 petiscos. Se João já deu 6 petiscos para seu cachorro, quantos petiscos ainda sobraram no pacote?', alternativas: ['5', '6', '4'], correta: 'c' },
+      { pergunta: 'João tinha 8 balas, comeu 4 e depois ganhou mais 3 de sua mãe. Quantas balas João tem agora?', alternativas: ['6', '7', '5'], correta: 'b' },
+      { pergunta: 'Quanto é 6 - 2?', alternativas: ['4', '3', '5'], correta: 'a' },
+      { pergunta: 'Rafael ganhou R$10,00 de sua avó. Ele gastou R$4,00 com balas. Depois, gastou mais R$3,00. Com quantos reais Rafael ficou no final?', alternativas: ['R$2,00', 'R$4,00', 'R$3,00'], correta: 'c' },
+      { pergunta: 'Imagine que vicê tinha 5 bonecas e perdeu 3. Com quantas bonecas você ficou?', alternativas: ['4', '2', '3'], correta: 'b' },
+      { pergunta: 'Quanto é 10 - 6?', alternativas: ['4', '3', '5'], correta: 'a' },
+      { pergunta: 'Qual número falta na conta: 9 - 3 = ?', alternativas: ['4', '5', '6'], correta: 'c' },
+      { pergunta: 'Imagine que seus pais compraram uma pizza. Sua mãe comeu 2 fatias, seu pai comeu 3 fatias, e você comeu 1 fatia. Sabendo que a pizza tinha dez fatias, quantas fatias sobraram?', alternativas: ['3 fatias', '4 fatias', '2 fatias'], correta: 'b' }
+    ];
+
+    let nomeAluno = '';
+    let respostasUsuario = [];
+    let perguntaAtual = 0;
+    const sentidoSaida = 'esquerda';
+
+    function iniciarQuiz() {
+      nomeAluno = document.getElementById('nomeAluno').value.trim();
+      if (nomeAluno === '') {
+        alert('Digite seu nome!');
+        return;
+      }
+      document.getElementById('inicio').classList.add('hidden');
+      document.getElementById('quiz').classList.remove('hidden');
+      mostrarPergunta();
+    }
+
+    function mostrarPergunta() {
+      const container = document.getElementById('perguntaContainer');
+      const contador = document.getElementById('contador');
+      const p = perguntas[perguntaAtual];
+      contador.innerText = `${perguntaAtual + 1}/${perguntas.length}`;
+      let html = `<div class="question"><p>${p.pergunta}</p>`;
+      ['a', 'b', 'c'].forEach((letra, i) => {
+        html += `<label><input type="radio" name="resposta" value="${letra}" /> ${p.alternativas[i]}</label>`;
+      });
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function proximaPergunta() {
+      const selecionado = document.querySelector('input[name="resposta"]:checked');
+      if (!selecionado) {
+        alert('Escolha uma resposta antes de continuar.');
+        return;
+      }
+
+      respostasUsuario.push(selecionado.value);
+
+      if (perguntaAtual === perguntas.length - 1) {
+        finalizarQuiz();
+        return;
+      }
+
+      const animarContainer = document.querySelector('#quiz .animar-container');
+      let sairClasse = 'sair-esquerda';
+      let entrarClasse = 'entrar-direita';
+
+      setTimeout(() => {
+        animarContainer.classList.add(sairClasse);
+        animarContainer.addEventListener('animationend', function handler() {
+          animarContainer.removeEventListener('animationend', handler);
+          perguntaAtual++;
+          mostrarPergunta();
+          animarContainer.classList.remove(sairClasse);
+          animarContainer.classList.add(entrarClasse);
+          animarContainer.addEventListener('animationend', function handler2() {
+            animarContainer.removeEventListener('animationend', handler2);
+            animarContainer.classList.remove(entrarClasse);
+          });
+        });
+      }, 200);
+    }
+
+    function finalizarQuiz() {
+      document.getElementById('quiz').classList.add('hidden');
+      document.getElementById('resultado').classList.remove('hidden');
+
+      let acertos = 0;
+      let resultado = `Resultado de Missão 2 - Matemática\n`;
+      resultado += `Aluno: ${nomeAluno}\n`;
+      resultado += `Data/Hora: ${new Date().toLocaleString()}\n\n`;
+
+      perguntas.forEach((p, i) => {
+        const correta = p.correta;
+        const marcada = respostasUsuario[i];
+        const corretaIndex = ['a', 'b', 'c'].indexOf(correta);
+        const marcadaIndex = ['a', 'b', 'c'].indexOf(marcada);
+        const acertou = marcada === correta;
+        if (acertou) acertos++;
+
+        resultado += `Questão ${i + 1}\n`;
+        resultado += `Alternativa marcada: ${marcada}) ${p.alternativas[marcadaIndex] || 'nenhuma'}\n`;
+        resultado += `Correta: ${correta}) ${p.alternativas[corretaIndex]}\n`;
+        resultado += `Resultado: ${acertou ? 'Correta' : 'Incorreta'}\n\n`;
+      });
+
+      const percentual = ((acertos / perguntas.length) * 100).toFixed(0);
+      resultado += `Pontuação: ${acertos}/10 (${percentual}%)`;
+
+      navigator.clipboard.writeText(resultado).catch(() => {});
+      document.getElementById('textoResultado').innerText = resultado;
+    }
+  </script>
+</body>
+</html>
